@@ -4,6 +4,7 @@ import {TasksType} from './App';
 type PropsType = {
   title: string
   tasks: Array<TasksType>
+  removeTask: (id: number) => void
 };
 
 export const Todolist: FC<PropsType> = (props) => {
@@ -22,22 +23,15 @@ export const Todolist: FC<PropsType> = (props) => {
       </div>
 
       <ul>
-        <li>
-          <input type="checkbox" checked={props.tasks[0].isDone}/>
-          <span>{props.tasks[0].title}</span>
-        </li>
-        <li>
-          <input type="checkbox" checked={props.tasks[1].isDone}/>
-          <span>{props.tasks[1].title}</span>
-        </li>
-        <li>
-          <input type="checkbox" checked={props.tasks[2].isDone}/>
-          <span>{props.tasks[2].title}</span>
-        </li>
-        <li>
-          <input type="checkbox" checked={props.tasks[3].isDone}/>
-          <span>{props.tasks[3].title}</span>
-        </li>
+        {
+          props.tasks.map(t => (
+            <li key={t.id}>
+              <button onClick={() => props.removeTask(t.id)}>X</button>
+              <input type="checkbox" checked={t.isDone}/>
+              <span>{t.title}</span>
+            </li>
+          ))
+        }
       </ul>
     </div>
   )
